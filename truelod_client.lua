@@ -55,4 +55,4 @@ function runonce()
 
 end -- End of runonce
 
-hook.Add( "InitPostEntity", "MapStartTrigger", runonce)
+hook.Add( "InitPostEntity", "init", runonce)
