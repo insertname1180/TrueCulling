@@ -4,27 +4,18 @@ function runonce()
 
 		--Initialize run-once variables
 		PROPS_AND_NPCS_ONLY = true
-		CULLFRONT = math.sin(0) --180deg   
-		sEntClass = ""
+		CULLFRONT = math.sin(0) --180deg
+		ply = LocalPlayer()		
 		jit.on()
 
 		--Initialize functions
-
-		function mainloop()
-			timer.Create("loop", 0.2, 0, main)
-		end
-
-		function loadvarinfunc()
-			ply = LocalPlayer()
-			vPlyDir = ply:GetAimVector()
-			vPlyPos = ply:GetPos()
-		end
 		
 		function main() -- more optimized than think
 			tAllEnts = ents.GetAll()
 			for a, e in ipairs(tAllEnts) do
-				loadvarinfunc()
 				vEntPos = e:GetPos() -- Get its position...
+				vPlyDir = ply:GetAimVector()
+				vPlyPos = ply:GetPos()				
 				e:SetNoDraw(true)
 				if e:GetClass() == "viewmodel" and "player" and "weapon" and "info_node" then
 					e:SetNoDraw(false)
@@ -37,23 +28,17 @@ function runonce()
 					if e:GetClass() == "viewmodel" and "player" and "weapon" and "info_node" then
 						e:SetNoDraw(false)
 					end
-					if ply:IsLineOfSightClear(vEntPos) then
+					if ply:IsLineOfSightClear(vEntPos) then					
 						e:SetNoDraw(false)
 					end
 				end
 			end
 		end
 
-		function threading()
-			coroutine.create(loadvarinfunc)
-			coroutine.create(main)
-			coroutine.create(mainloop)		
-		end
+		coroutine.create(main)
 
-		-- threading
-		threading()
-		mainloop()
-
+		timer.Create("loop", 0.2, 0, main)
+		
 	end -- End of if
 
 end -- End of runonce
