@@ -30,12 +30,13 @@ function runonce()
 					e:SetNoDraw(false)
 				end
 			end
+			timer.Simple(0.25, main)
 		end
 
 		-- Initialize coroutines
 		coroutine.create(main)
 		
-		timer.Create("pootis", 0.25, 0, main)
+		main()
 
 	end -- End of if
 
