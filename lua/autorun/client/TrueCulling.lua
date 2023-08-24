@@ -9,35 +9,35 @@ function runonce()
 		jit.on()
 
 		-- Remove hook as we no longer need it
+
 		hook.Remove("InitPostEntity", "init")		
 			
 		--Initialize functions
-		
-		function main() -- more optimized than think		
+	
+		function main() -- more optimized than think
 			tAllEnts = ents.GetAll()
 			for a, e in ipairs(tAllEnts) do
 				e:SetNoDraw(true)
 				if util.IsPointInCone(e:GetPos(), ply:GetPos(), ply:GetAimVector(), CULLFRONT, 100000) then
-					e:SetNoDraw(true)
-					if ply:IsLineOfSightClear(e:GetPos()) then					
+					if ply:IsLineOfSightClear(e:GetPos()) then
 						e:SetNoDraw(false)
 					end
 				end
 				if e:IsPlayer() then
-					e:SetNoDraw(false)						
+					e:SetNoDraw(false)
 				end
 				if e:GetClass() == "viewmodel" and "weapon" and "info_node" then
 					e:SetNoDraw(false)
 				end
 			end
-			timer.Simple(0.25, main)
+			timer.Simple(0.2, main)
 		end
 
 		-- Initialize coroutines
 		coroutine.create(main)
 		
 		main()
-
+		
 	end -- End of if
 
 end -- End of runonce
