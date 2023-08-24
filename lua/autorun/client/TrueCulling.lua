@@ -19,9 +19,9 @@ function runonce()
 					if ply:IsLineOfSightClear(e:GetPos()) then					
 						e:SetNoDraw(false)
 					end
-					if e:IsPlayer() then
-						e:SetNoDraw(false)						
-					end
+				end
+				if e:IsPlayer() then
+					e:SetNoDraw(false)						
 				end
 				if e:GetClass() == "viewmodel" and "player" and "weapon" and "info_node" then
 					e:SetNoDraw(false)
