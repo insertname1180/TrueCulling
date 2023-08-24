@@ -31,6 +31,9 @@ function runonce()
 				end
 				if util.IsPointInCone(vEntPos, vPlyPos, vPlyDir, CULLFRONT, 100000) then
 					e:SetNoDraw(true)
+					if e:IsPlayer() then
+						e:SetNoDraw(false)						
+					end	
 					if e:GetClass() == "viewmodel" and "player" and "weapon" and "info_node" then
 						e:SetNoDraw(false)
 					end
