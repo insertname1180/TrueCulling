@@ -1,45 +1,31 @@
-function runonce()
+hook.Add("InitPostEntity", "init", init)
 
-	if CLIENT then
+if CLIENT then
 
-		--Initialize run-once variables
+	CULLFRONT = math.sin(0.42261826) -- 150 Degrees forward		
+	ply = LocalPlayer()
+	jit.on()
 
-		CULLFRONT = math.sin(0.42261826) -- 150 degrees forward
-		ply = LocalPlayer()
-		jit.on()
+	hook.Remove("InitPostEntity", "init")
 
-		-- Remove hook as we no longer need it
-
-		hook.Remove("InitPostEntity", "init")		
-			
-		--Initialize functions
-	
-		function main() -- more optimized than think
-			tAllEnts = ents.GetAll()
-			for a, e in ipairs(tAllEnts) do
-				e:SetNoDraw(true)
-				if util.IsPointInCone(e:GetPos(), ply:GetPos(), ply:GetAimVector(), CULLFRONT, 100000) then
-					if ply:IsLineOfSightClear(e:GetPos()) then
-						e:SetNoDraw(false)
-					end
-				end
-				if e:IsPlayer() then
-					e:SetNoDraw(false)
-				end
-				if e:GetClass() == "viewmodel" and "weapon" and "info_node" then
+	function init()
+		tAllEnts = ents.GetAll()
+		for a, e in pairs(tAllEnts) do
+			e:SetNoDraw(true)	
+			if util.IsPointInCone(e:GetPos(), ply:GetPos(), ply:GetAimVector(), CULLFRONT, 100000) then
+				if ply:IsLineOfSightClear(e:GetPos()) then					
 					e:SetNoDraw(false)
 				end
 			end
-			timer.Simple(0.2, main)
+			if e:IsPlayer() or e:GetClass() == "viewmodel" then					
+				e:SetNoDraw(false)
+			end
 		end
+		timer.Simple(0.5, init)
+	end
 
-		-- Initialize coroutines
-		coroutine.create(main)
-		
-		main()
-		
-	end -- End of if
+	coroutine.create(init)
 
-end -- End of runonce
+	init()
 
-hook.Add( "InitPostEntity", "init", runonce)
+end
