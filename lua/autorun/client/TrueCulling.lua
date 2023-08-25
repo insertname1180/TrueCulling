@@ -1,31 +1,35 @@
-hook.Add("InitPostEntity", "init", init)
+hook.Add("InitPostEntity", "runonce", runonce)
 
-if CLIENT then
+function runonce()
 
-	CULLFRONT = math.sin(0.42261826) -- 150 Degrees forward		
-	ply = LocalPlayer()
-	jit.on()
+	if CLIENT then
 
-	hook.Remove("InitPostEntity", "init")
+		CULLFRONT = math.sin(0.42261826) -- 150 Degrees forward		
+		ply = LocalPlayer()
+		jit.on()
 
-	function init()
-		tAllEnts = ents.GetAll()
-		for a, e in pairs(tAllEnts) do
-			e:SetNoDraw(true)	
-			if util.IsPointInCone(e:GetPos(), ply:GetPos(), ply:GetAimVector(), CULLFRONT, 100000) then
-				if ply:IsLineOfSightClear(e:GetPos()) then					
+		hook.Remove("InitPostEntity", "runonce")
+
+		function init()
+			tAllEnts = ents.GetAll()
+			for a, e in pairs(tAllEnts) do
+				e:SetNoDraw(true)	
+				if util.IsPointInCone(e:GetPos(), ply:GetPos(), ply:GetAimVector(), CULLFRONT, 100000) then
+					if ply:IsLineOfSightClear(e:GetPos()) then					
+						e:SetNoDraw(false)
+					end
+				end
+				if e:IsPlayer() or e:GetClass() == "viewmodel" then					
 					e:SetNoDraw(false)
 				end
 			end
-			if e:IsPlayer() or e:GetClass() == "viewmodel" then					
-				e:SetNoDraw(false)
-			end
+			timer.Simple(0.5, init)
 		end
-		timer.Simple(0.5, init)
+
+		coroutine.create(init)
+
+		init()
+
 	end
-
-	coroutine.create(init)
-
-	init()
 
 end
