@@ -1,5 +1,3 @@
-hook.Add("InitPostEntity", "runonce", runonce)
-
 function runonce()
 
 	if CLIENT then
@@ -33,3 +31,5 @@ function runonce()
 	end
 
 end
+
+hook.Add("InitPostEntity", "runonce", runonce)
