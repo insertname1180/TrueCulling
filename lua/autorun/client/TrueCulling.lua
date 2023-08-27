@@ -4,12 +4,11 @@ CULLFRONT = math.sin(0.42261826) -- 150 Degrees forward
 
 function init()
 	hook.Remove("InitPostEntity", "runonce")
-	hook.Remove("InitPostEntity", "tick")
-	if engine.TickCount()%1 == 0 then
-		ply = LocalPlayer()
-		tAllEnts = ents.GetAll()
-		for a, e in pairs(tAllEnts) do
-			e:SetNoDraw(true)
+	ply = LocalPlayer()
+	tAllEnts = ents.GetAll()
+	for a, e in pairs(tAllEnts) do
+		e:SetNoDraw(true)
+		if engine.TickCount()%1 == 0 then
 			if engine.TickCount()%33 == 0 then
 				if util.IsPointInCone(e:GetPos(), ply:GetPos(), ply:GetAimVector(), CULLFRONT, 100000) then
 					if engine.TickCount()%1 == 0 then
@@ -19,7 +18,16 @@ function init()
 					else
 						return
 					end
+					if engine.TickCount()%4 == 0 then
+						if e:GetClass() == "prop_door_rotating" or e:GetClass() == "func_door" then
+							e:SetNoDraw(false)
+						end
+					else
+						return
+					end
 				end
+			else
+				return
 			end
 			if engine.TickCount()%33 == 0 then
 				if e:IsPlayer() or e:GetClass() == "viewmodel" then					
@@ -28,9 +36,9 @@ function init()
 			else
 				return
 			end
+		else
+			return
 		end
-	else
-		return
 	end
 end
 
