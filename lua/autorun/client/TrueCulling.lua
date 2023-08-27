@@ -10,21 +10,21 @@ function init()
         e:SetNoDraw(true)
         if engine.TickCount()%1 == 0 then
             if engine.TickCount()%1 == 0 then
-                if util.IsPointInCone(e:GetPos(), ply:GetPos() * 1.1, ply:GetAimVector(), CULLFRONT, 100000) then
-                    if engine.TickCount()%33 == 0 then
+                if util.IsPointInCone(e:GetPos(), ply:GetPos() * 0.9, ply:GetAimVector(), CULLFRONT, 100000) then
+					if engine.TickCount()%24 == 0 then
+	                    if e:GetClass() == "prop_door_rotating" or "func_door" then
+							e:SetNoDraw(false)
+						end        
+		            else
+						return
+					end                    
+					if engine.TickCount()%33 == 0 then
                         if ply:IsLineOfSightClear(e:GetPos()) then                    
                             e:SetNoDraw(false)
                         end
                     else
                         return
                     end
-					if engine.TickCount()%45 == 0 then
-	                    if e:GetClass() == "prop_door_rotating" or "func_door" then
-							e:SetNoDraw(false)
-						end        
-		            else
-						return
-					end
                 end
             else
                 return
