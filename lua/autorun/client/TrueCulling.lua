@@ -9,27 +9,26 @@ function init()
     for a, e in pairs(tAllEnts) do
         e:SetNoDraw(true)
         if engine.TickCount()%1 == 0 then
-            if engine.TickCount()%1 == 0 then
-                if util.IsPointInCone(e:GetPos(), ply:GetPos() * 0.9, ply:GetAimVector(), CULLFRONT, 100000) then
-					if engine.TickCount()%24 == 0 then
-	                    if e:GetClass() == "prop_door_rotating" or "func_door" then
-							e:SetNoDraw(false)
-						end        
-		            else
-						return
-					end                    
-					if engine.TickCount()%33 == 0 then
-                        if ply:IsLineOfSightClear(e:GetPos()) then                    
-                            e:SetNoDraw(false)
-                        end
-                    else
-                        return
+			if engine.TickCount()%16.5 == 0 then
+				if e:GetPos():Distance(ply:GetPos()) < 75 then
+        	       	e:SetNoDraw(false)
+        	    end
+			else
+				return
+			end
+            if util.IsPointInCone(e:GetPos(), ply:GetPos(), ply:GetAimVector(), CULLFRONT, 100000) then
+                if engine.TickCount()%16.5 == 0 then
+                    if ply:IsLineOfSightClear(e:GetPos()) then                    
+                        e:SetNoDraw(false)
                     end
+                else
+                    return
                 end
-            else
-                return
+                if e:GetClass() == "prop_door_rotating" or "func_door" then
+                    e:SetNoDraw(false)
+                end
             end
-            if engine.TickCount()%66 == 0 then
+            if engine.TickCount()%16.5 == 0 then
                 if e:IsPlayer() or e:GetClass() == "viewmodel" then                    
                     e:SetNoDraw(false)
                 end
