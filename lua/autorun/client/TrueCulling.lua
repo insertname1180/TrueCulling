@@ -18,7 +18,7 @@ function init()
 			return
 		end
 		if engine.TickCount()%22.5 == 0 then
-			if e:GetPos():Distance(ply:GetPos()) < 75 then
+			if e:GetPos():Distance(ply:GetPos()) < 100 then
 				e:SetNoDraw(false)
 	        end
 		else
