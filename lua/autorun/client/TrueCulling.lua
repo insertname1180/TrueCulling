@@ -12,7 +12,7 @@ function main()
 			if engine.TickCount()%10 == 0 then
 				if ents_:GetNoDraw(true) then
 					if util.IsPointInCone(ents_:GetPos(), LocalPlayer():GetPos(), LocalPlayer():GetAimVector(), CULLFRONT, 100000) then
-						if LocalPlayer():IsLineOfSightClear(ents_:GetPos() + Vector(-25,-25,-25)) or LocalPlayer():IsLineOfSightClear(ents_:GetPos() + Vector(100,100,10)) then
+						if LocalPlayer():IsLineOfSightClear(ents_:GetPos() + Vector(-25,-25,-25)) or LocalPlayer():IsLineOfSightClear(ents_:GetPos() + Vector(10,10,10)) then
 							if ents_:GetNoDraw(true) then 
 								ents_:SetNoDraw(false)
 							end
