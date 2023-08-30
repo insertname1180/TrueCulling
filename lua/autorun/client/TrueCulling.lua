@@ -7,9 +7,7 @@ function main()
 	if engine.TickCount()%6 == 0 then
 		for a, ents_ in pairs(allEnts) do
 			if engine.TickCount()%16 == 0 then
-				if ents_:GetNoDraw(false) then
-					ents_:SetNoDraw(true)
-				end
+				ents_:SetNoDraw(true)
 			end
 			if engine.TickCount()%22 == 0 then
 				if ents_:GetNoDraw(true) then
