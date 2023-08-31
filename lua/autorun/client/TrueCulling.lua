@@ -23,8 +23,8 @@ function main()
 				return
 			end
 			if engine.TickCount()%10 == 0 then
-				if ents_:IsPlayer() or ents_:GetClass() == "viewmodel" then    
-					if ents_:GetNoDraw(true) then                
+				if ents_:IsPlayer() or ents_:GetClass() == "viewmodel" then
+					if ents_:GetNoDraw(true) then            
 						ents_:SetNoDraw(false)
 					end
 				end
@@ -36,6 +36,13 @@ function main()
 					if ents_:GetNoDraw(true) then				
 						ents_:SetNoDraw(false)
 					end			
+				end
+			else
+				return
+			end
+			if engine.TickCount()%10 == 0 then
+				if ents_:GetClass() == "10C_BaseFlex" then
+					ents_:SetNoDraw(true)
 				end
 			else
 				return
