@@ -8,7 +8,7 @@ function main()
 		for a, ents_ in pairs(allEnts) do
 			if engine.TickCount()%10 == 0 then
 				ents_:SetNoDraw(true)
-				if ents_:GetClass() == "10C_BaseFlex" then
+				if ents_:GetClass() == "10C_BaseFlex" or ents_:GetClass() == "class C_BaseFlex" then
 					continue
 				end
 				if util.IsPointInCone(ents_:GetPos(), LocalPlayer():GetPos(), LocalPlayer():GetAimVector(), CULLFRONT, 100000) then
